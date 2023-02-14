@@ -29,7 +29,7 @@ build {
   provisioner "shell" {
     inline = [
       "sudo add-apt-repository ppa:deadsnakes/ppa",
-      "sudo apt install nginx -y",
+      "sudo apt install -f"
       "sudo apt install python3.11 -y",
       "python3.11 -V",
     ]
