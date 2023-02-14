@@ -29,7 +29,6 @@ build {
   provisioner "shell" {
     inline = [
       "sudo apt-get install python3.11 -y",
-      "python3.11 -V"
     ]
   }
 
