@@ -30,12 +30,10 @@ build {
     inline = [
       "sudo rm -r /var/lib/apt/lists/*",
       "sudo apt update -y",
-      "lsb_release -a",
-      "sudo apt install python3.11 nginx -y",
-      "sudo apt install python3.11 -y",
+      "sudo add-apt-repository ppa:deadsnakes/ppa",
+      "sudo apt install nginx -y",
       "sudo apt install python3.11 -y",
       "python3.11 -V",
-      "lsb_release -a"
     ]
   }
 
