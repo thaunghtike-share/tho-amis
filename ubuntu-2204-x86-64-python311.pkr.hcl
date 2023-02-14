@@ -31,7 +31,7 @@ build {
       "sudo add-apt-repository ppa:deadsnakes/ppa",
       "sudo apt install python3.11 -y",
       "sudo apt install -f",
-      "python3.11 -V",
+      "sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1",
     ]
   }
 
