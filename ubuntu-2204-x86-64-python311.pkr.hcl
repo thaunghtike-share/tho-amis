@@ -28,7 +28,7 @@ build {
 
   provisioner "shell" {
     inline = [
-      "sudo apt-get install python3.11 -y",
+      "sudo apt-get install python3.11 nginx -y",
     ]
   }
 
