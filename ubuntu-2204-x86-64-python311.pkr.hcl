@@ -28,8 +28,7 @@ build {
 
   provisioner "shell" {
     inline = [
-      "sudo apt-get install python3.11 -y",
-      "sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1"
+      "sudo apt-get install python3.11 -y && sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1"
     ]
   }
 
