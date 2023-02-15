@@ -29,7 +29,6 @@ build {
   provisioner "shell" {
     inline = [
       "sudo apt install openjdk-11-jdk -y",
-      "java --version"
     ]
   }
 
