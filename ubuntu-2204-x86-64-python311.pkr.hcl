@@ -28,6 +28,7 @@ build {
 
   provisioner "shell" {
     inline = [
+      "sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo apt update",
       "sudo apt install openjdk-11-jdk -y",
     ]
   }
