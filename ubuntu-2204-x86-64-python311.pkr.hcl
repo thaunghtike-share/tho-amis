@@ -9,8 +9,8 @@ data "amazon-ami" "ubuntu-2204-x86-64" {
   most_recent = true
 }
 
-source "amazon-ebs" "nixtune-ubuntu-2204-x86-64-node18" {
-  ami_name      = "${local.name_prefix}ubuntu-2204-x86-64-node18-{{isotime `2006-01-02`}}-{{timestamp}}"
+source "amazon-ebs" "nixtune-ubuntu-2204-x86-64-ruby32" {
+  ami_name      = "${local.name_prefix}ubuntu-2204-x86-64-ruby32-{{isotime `2006-01-02`}}-{{timestamp}}"
   instance_type = "t3a.micro"
   region        = "us-east-1"
   source_ami    = data.amazon-ami.ubuntu-2204-x86-64.id
@@ -19,7 +19,7 @@ source "amazon-ebs" "nixtune-ubuntu-2204-x86-64-node18" {
 
 build {
   sources = [
-    "source.amazon-ebs.nixtune-ubuntu-2204-x86-64-node18"
+    "source.amazon-ebs.nixtune-ubuntu-2204-x86-64-ruby32"
   ]
 
   provisioner "shell" {
@@ -29,10 +29,8 @@ build {
   provisioner "shell" {
     inline = [
       "sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo apt update",
-      "curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -",
-      "sudo apt-get install nodejs -y",
-      "node --version",
-      "npm --version"
+      "sudo apt-get install ruby-full -y",
+      "ruby--version"
     ]
   }
 
@@ -41,7 +39,7 @@ build {
   }
 
   post-processor "manifest" {
-    output     = "ubuntu-2204-x86-64-node18.json"
+    output     = "ubuntu-2204-x86-64-ruby32.json"
     strip_path = true
   }
 }
