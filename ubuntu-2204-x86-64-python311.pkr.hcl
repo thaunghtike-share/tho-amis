@@ -9,8 +9,8 @@ data "amazon-ami" "ubuntu-2204-x86-64" {
   most_recent = true
 }
 
-source "amazon-ebs" "nixtune-ubuntu-2204-x86-64-python311" {
-  ami_name      = "${local.name_prefix}ubuntu-2204-x86-64-python311-{{isotime `2006-01-02`}}-{{timestamp}}"
+source "amazon-ebs" "nixtune-ubuntu-2204-x86-64-java11" {
+  ami_name      = "${local.name_prefix}ubuntu-2204-x86-64-java11-{{isotime `2006-01-02`}}-{{timestamp}}"
   instance_type = "t3a.micro"
   region        = "us-east-1"
   source_ami    = data.amazon-ami.ubuntu-2204-x86-64.id
@@ -19,7 +19,7 @@ source "amazon-ebs" "nixtune-ubuntu-2204-x86-64-python311" {
 
 build {
   sources = [
-    "source.amazon-ebs.nixtune-ubuntu-2204-x86-64-python311"
+    "source.amazon-ebs.nixtune-ubuntu-2204-x86-64-java11"
   ]
 
   provisioner "shell" {
@@ -28,11 +28,8 @@ build {
 
   provisioner "shell" {
     inline = [
-      "sudo add-apt-repository ppa:deadsnakes/ppa",
-      "sudo apt install media-types libpython3.11-stdlib python3.11 -y",
-      "sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1",
-      "python3.11 -V",
-      "python --version"
+      "sudo apt install openjdk-11-jdk -y",
+      "java --version"
     ]
   }
 
@@ -41,7 +38,7 @@ build {
   }
 
   post-processor "manifest" {
-    output     = "ubuntu-2204-x86-64-python311.json"
+    output     = "ubuntu-2204-x86-64-java11.json"
     strip_path = true
   }
 }
