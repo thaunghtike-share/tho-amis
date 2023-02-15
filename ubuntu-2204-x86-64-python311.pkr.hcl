@@ -31,6 +31,8 @@ build {
       "sudo add-apt-repository ppa:deadsnakes/ppa",
       "sudo apt install media-types libpython3.11-stdlib python3.11 -y",
       "sudo update-alternatives --install /usr/bin/python python /usr/bin/python3.11 1",
+      "python3.11 -V"
+      "python --version"
     ]
   }
 
