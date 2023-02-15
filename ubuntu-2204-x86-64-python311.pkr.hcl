@@ -29,8 +29,8 @@ build {
   provisioner "shell" {
     inline = [
       "sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo apt update",
+      "sudo add-apt-repository ppa:linuxuprising/java",
       "sudo apt install openjdk-11-jdk -y",
-      "java --version"
     ]
   }
 
