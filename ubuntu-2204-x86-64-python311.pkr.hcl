@@ -28,7 +28,7 @@ build {
 
   provisioner "shell" {
     inline = [
-      "sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo apt update",
+      "sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo apt update -y && sudo apt upgrade -y",
       "sudo apt-get install ruby-full -y",
       "ruby --version"
     ]
