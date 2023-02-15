@@ -31,8 +31,8 @@ build {
       "sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo apt update",
       "curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -",
       "sudo apt-get install nodejs -y",
-      "node -V",
-      "npm -V"
+      "node --version",
+      "npm --version"
     ]
   }
 
