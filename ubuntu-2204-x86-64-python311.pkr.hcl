@@ -10,7 +10,7 @@ data "amazon-ami" "ubuntu-2204-x86-64" {
 }
 
 source "amazon-ebs" "nixtune-ubuntu-2204-x86-64-java11" {
-  ami_name      = "${local.name_prefix}ubuntu-2204-x86-64-java11-{{isotime `2006-01-02`}}-{{timestamp}}"
+  ami_name      = "${local.name_prefix}ubuntu-2204-x86-64-java17-{{isotime `2006-01-02`}}-{{timestamp}}"
   instance_type = "t3a.micro"
   region        = "us-east-1"
   source_ami    = data.amazon-ami.ubuntu-2204-x86-64.id
@@ -30,7 +30,7 @@ build {
     inline = [
       "sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo apt update",
       "sudo add-apt-repository ppa:linuxuprising/java",
-      "sudo apt install openjdk-11-jdk -y",
+      "sudo apt install openjdk-17-jdk -y",
       "java --version",
       "lsb_release -a"
     ]
