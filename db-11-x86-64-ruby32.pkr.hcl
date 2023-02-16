@@ -11,7 +11,7 @@ data "amazon-ami" "debian-11-x86-64" {
 
 source "amazon-ebs" "nixtune-debian-11-x86-64-ruby32" {
   ami_name      = "${local.name_prefix}debian-11-x86-64-ruby32-{{isotime `2006-01-02`}}-{{timestamp}}"
-  instance_type = "t3a.micro"
+  instance_type = "t3.micro"
   region        = "us-east-1"
   source_ami    = data.amazon-ami.debian-11-x86-64.id
   ssh_username  = "admin"
