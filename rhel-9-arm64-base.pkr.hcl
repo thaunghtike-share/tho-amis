@@ -11,7 +11,7 @@ data "amazon-ami" "rhel-9-arm64" {
 
 source "amazon-ebs" "nixtune-rhel-9-arm64" {
   ami_name      = "${local.name_prefix}rhel-9-arm64-base-{{isotime `2006-01-02`}}-{{timestamp}}"
-  instance_type = "t3a.micro"
+  instance_type = "c6g.medium"
   region        = "us-east-1"
   source_ami    = data.amazon-ami.rhel-9-arm64.id
   ssh_username  = "ec2-user"
