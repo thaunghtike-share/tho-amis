@@ -3,7 +3,7 @@ data "amazon-ami" "debian-11-arm64" {
     virtualization-type = "hvm"
     name                = "debian-11-arm64-*"
     root-device-type    = "ebs"
-    architecture        = "x86_64"
+    architecture        = "arm64"
   }
   owners      = ["136693071363"]
   most_recent = true
