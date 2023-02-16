@@ -1,25 +1,25 @@
-data "amazon-ami" "ubuntu-2204-x86-64" {
+data "amazon-ami" "debian-11-x86-64" {
   filters = {
     virtualization-type = "hvm"
-    name                = "ubuntu/images/*ubuntu-jammy-22.04-amd64-server-*"
+    name                = "debian-11-amd64-*"
     root-device-type    = "ebs"
     architecture        = "x86_64"
   }
-  owners      = ["099720109477"]
+  owners      = ["136693071363"]
   most_recent = true
 }
 
-source "amazon-ebs" "nixtune-ubuntu-2204-x86-64-ruby32" {
-  ami_name      = "${local.name_prefix}ubuntu-2204-x86-64-ruby32-{{isotime `2006-01-02`}}-{{timestamp}}"
+source "amazon-ebs" "nixtune-debian-11-x86-64-ruby32" {
+  ami_name      = "${local.name_prefix}debian-11-x86-64-ruby32-{{isotime `2006-01-02`}}-{{timestamp}}"
   instance_type = "t3a.micro"
   region        = "us-east-1"
-  source_ami    = data.amazon-ami.ubuntu-2204-x86-64.id
-  ssh_username  = "ubuntu"
+  source_ami    = data.amazon-ami.debian-11-x86-64.id
+  ssh_username  = "admin"
 }
 
 build {
   sources = [
-    "source.amazon-ebs.nixtune-ubuntu-2204-x86-64-ruby32"
+    "source.amazon-ebs.nixtune-debian-11-x86-64-ruby32"
   ]
 
   provisioner "shell" {
@@ -43,7 +43,7 @@ build {
   }
 
   post-processor "manifest" {
-    output     = "ubuntu-2204-x86-64-ruby32.json"
+    output     = "debian-11-x86-64-ruby32.json"
     strip_path = true
   }
 }
