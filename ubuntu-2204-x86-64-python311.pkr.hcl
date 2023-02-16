@@ -28,13 +28,13 @@ build {
 
   provisioner "shell" {
     inline = [
-      "#!/bin/bash",
       "sudo add-apt-repository main multiverse universe restricted",
       "sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo apt update -y",
       "sudo apt install gnupg2 software-properties-common curl g++ gcc autoconf automake bison libc6-dev libffi-dev libgdbm-dev libncurses5-dev libsqlite3-dev libtool libyaml-dev make pkg-config sqlite3 zlib1g-dev libgmp-dev libreadline-dev libssl-dev -y",
       "gpg2 --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB",
       "curl -sSL https://get.rvm.io | bash -s stable",
       "/bin/bash -c '. ~/.rvm/scripts/rvm && rvm install ruby-3.2.1'",
+      "ruby --version"
     ]
   }
 
