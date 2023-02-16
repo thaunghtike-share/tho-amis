@@ -36,7 +36,6 @@ build {
       "curl -sSL https://get.rvm.io | bash -s stable",
       "/bin/bash -c '. ~/.rvm/scripts/rvm && type rvm | head -n 1'",
       "rvm install ruby-3.2.1",
-      "ruby --version"
     ]
   }
 
