@@ -1,7 +1,7 @@
-data "amazon-ami" "debian-11-x86-64" {
+data "amazon-ami" "debian-11-arm64" {
   filters = {
     virtualization-type = "hvm"
-    name                = "debian-11-amd64-*"
+    name                = "debian-11-arm64-*"
     root-device-type    = "ebs"
     architecture        = "x86_64"
   }
@@ -9,17 +9,17 @@ data "amazon-ami" "debian-11-x86-64" {
   most_recent = true
 }
 
-source "amazon-ebs" "nixtune-debian-11-x86-64-ruby32" {
-  ami_name      = "${local.name_prefix}debian-11-x86-64-ruby32-{{isotime `2006-01-02`}}-{{timestamp}}"
-  instance_type = "t3.micro"
+source "amazon-ebs" "nixtune-debian-11-arm64-ruby32" {
+  ami_name      = "${local.name_prefix}debian-11-arm64-ruby32-{{isotime `2006-01-02`}}-{{timestamp}}"
+  instance_type = "c6g.medium"
   region        = "us-east-1"
-  source_ami    = data.amazon-ami.debian-11-x86-64.id
+  source_ami    = data.amazon-ami.debian-11-arm64.id
   ssh_username  = "admin"
 }
 
 build {
   sources = [
-    "source.amazon-ebs.nixtune-debian-11-x86-64-ruby32"
+    "source.amazon-ebs.nixtune-debian-11-arm64-ruby32"
   ]
 
   provisioner "shell" {
@@ -40,7 +40,7 @@ build {
   }
 
   post-processor "manifest" {
-    output     = "debian-11-x86-64-ruby32.json"
+    output     = "debian-11-arm64-ruby32.json"
     strip_path = true
   }
 }
