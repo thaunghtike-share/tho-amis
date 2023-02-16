@@ -1,25 +1,25 @@
-data "amazon-ami" "debian-11-arm64" {
+data "amazon-ami" "ubuntu-2204-x86-64" {
   filters = {
     virtualization-type = "hvm"
-    name                = "debian-11-arm64-*"
+    name                = "ubuntu/images/*ubuntu-jammy-22.04-amd64-server-*"
     root-device-type    = "ebs"
-    architecture        = "arm64"
+    architecture        = "x86_64"
   }
-  owners      = ["136693071363"]
+  owners      = ["099720109477"]
   most_recent = true
 }
 
-source "amazon-ebs" "nixtune-debian-11-arm64-ruby31" {
-  ami_name      = "${local.name_prefix}debian-11-arm64-ruby31-{{isotime `2006-01-02`}}-{{timestamp}}"
-  instance_type = "c6g.medium"
+source "amazon-ebs" "nixtune-ubuntu-2204-x86-64-ruby32" {
+  ami_name      = "${local.name_prefix}ubuntu-2204-x86-64-ruby32-{{isotime `2006-01-02`}}-{{timestamp}}"
+  instance_type = "t3a.micro"
   region        = "us-east-1"
-  source_ami    = data.amazon-ami.debian-11-arm64.id
-  ssh_username  = "admin"
+  source_ami    = data.amazon-ami.ubuntu-2204-x86-64.id
+  ssh_username  = "ubuntu"
 }
 
 build {
   sources = [
-    "source.amazon-ebs.nixtune-debian-11-arm64-ruby31"
+    "source.amazon-ebs.nixtune-ubuntu-2204-x86-64-ruby32"
   ]
 
   provisioner "shell" {
@@ -28,11 +28,13 @@ build {
 
   provisioner "shell" {
     inline = [
-      "sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo apt update -y",
-      "sudo apt install apt-transport-https ca-certificates gnupg2 curl -y",
+      "sudo add-apt-repository main multiverse universe restricted",
+      "sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/* && sudo apt-get update -y",
+      "sudo apt-get install build-essential -y",
       "gpg2 --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB",
       "curl -sSL https://get.rvm.io | bash -s stable",
-      "/bin/bash -c '. /home/admin/.rvm/scripts/rvm && rvm install ruby-3.1.2'"    ]
+      "/bin/bash -c '. ~/.rvm/scripts/rvm && rvm install ruby-3.2.1 && ruby --version'"
+    ]
   }
 
   provisioner "shell" {
@@ -40,7 +42,7 @@ build {
   }
 
   post-processor "manifest" {
-    output     = "debian-11-arm64-ruby31.json"
+    output     = "ubuntu-2204-x86-64-ruby32.json"
     strip_path = true
   }
 }
