@@ -28,7 +28,7 @@ build {
 
   provisioner "shell" {
     inline = [
-      "sudo rm -rvf /var/lib/apt/lists/* && sudo apt-get clean && sudo ping 8.8.8.8 && sudo apt-get update -y  && sudo apt-get install build-essential dotnet6 -y",
+      "sudo apt-get update -y  && sudo apt-get install build-essential dotnet6 -y",
     ]
   }
 
