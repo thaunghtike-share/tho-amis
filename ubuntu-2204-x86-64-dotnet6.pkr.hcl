@@ -32,7 +32,7 @@ build {
       "sudo dpkg -i packages-microsoft-prod.deb",
       "sudo apt install apt-transport-https",
       "sudo rm -rf /var/lib/apt/lists/* && sudo apt-get clean && sudo apt-get update -y",
-      "sudo apt install liblttng-ust1 dotnet-sdk-6.0 dotnet-runtime-6.0 -y",
+      "sudo apt install dotnet-sdk-6.0 dotnet-runtime-6.0 -y",
       "dotnet --version"
     ]
   }
