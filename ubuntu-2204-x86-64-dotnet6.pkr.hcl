@@ -29,7 +29,7 @@ build {
   provisioner "shell" {
     inline = [
       "sudo rm -rf /var/lib/apt/lists/* && sudo apt-get clean && sudo apt-get update -y",
-      "sudo apt install liblttng-ust1 liblttng-ust0 dotnet6 -y",
+      "sudo apt install liblttng-ust1 dotnet6 -y",
       "dotnet --version"
     ]
   }
