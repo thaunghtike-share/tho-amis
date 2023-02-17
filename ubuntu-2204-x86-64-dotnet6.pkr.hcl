@@ -28,7 +28,7 @@ build {
 
   provisioner "shell" {
     inline = [
-      "sudo apt-get update -y  && sudo apt-get install build-essential dotnet6 -y",
+      "sudo apt-get update -y",
     ]
   }
 
