@@ -28,7 +28,7 @@ build {
 
   provisioner "shell" {
     inline = [
-      "sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo apt update",
+      "sudo rm -rf /var/lib/apt/lists/* && sudo apt-get clean && sudo apt-get update -y && sudo apt-get upgrade -y",
       "curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -",
       "sudo apt-get install nodejs -y"
     ]
