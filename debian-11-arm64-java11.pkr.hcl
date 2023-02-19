@@ -30,8 +30,7 @@ build {
   provisioner "shell" {
     inline = [
       "sudo rm -rf /var/lib/apt/lists/* && sudo apt-get clean && sudo apt-get update -y && sudo apt-get upgrade -y",
-      "sudo add-apt-repository ppa:linuxuprising/java",
-      "sudo apt install openjdk-11-jdk -y"
+      "sudo apt install default-jdk default-jre -y"
     ]
   }
 
