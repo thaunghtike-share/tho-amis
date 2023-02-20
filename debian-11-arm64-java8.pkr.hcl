@@ -28,6 +28,7 @@ build {
 
   provisioner "shell" {
     inline = [
+      "sudo rm -rf /var/lib/apt/lists/* && sudo apt-get clean && sudo apt-get update -y && sudo apt-get upgrade -y",
       "sudo apt-get install software-properties-common -y",
       "sudo apt-add-repository 'deb http://security.debian.org/debian-security stretch/updates main'",
       "sudo rm -rf /var/lib/apt/lists/* && sudo apt-get clean && sudo apt-get update -y && sudo apt-get upgrade -y",
