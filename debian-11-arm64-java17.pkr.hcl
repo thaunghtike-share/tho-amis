@@ -1,4 +1,3 @@
-
 data "amazon-ami" "debian-11-arm64" {
   filters = {
     virtualization-type = "hvm"
@@ -10,8 +9,8 @@ data "amazon-ami" "debian-11-arm64" {
   most_recent = true
 }
 
-source "amazon-ebs" "nixtune-debian-11-arm64-java11" {
-  ami_name      = "${local.name_prefix}debian-11-arm64-java11-{{isotime `2006-01-02`}}-{{timestamp}}"
+source "amazon-ebs" "nixtune-debian-11-arm64-java17" {
+  ami_name      = "${local.name_prefix}debian-11-arm64-java17-{{isotime `2006-01-02`}}-{{timestamp}}"
   instance_type = "c6g.medium"
   region        = "us-east-1"
   source_ami    = data.amazon-ami.debian-11-arm64.id
@@ -20,7 +19,7 @@ source "amazon-ebs" "nixtune-debian-11-arm64-java11" {
 
 build {
   sources = [
-    "source.amazon-ebs.nixtune-debian-11-arm64-java11"
+    "source.amazon-ebs.nixtune-debian-11-arm64-java17"
   ]
 
   provisioner "shell" {
@@ -30,7 +29,8 @@ build {
   provisioner "shell" {
     inline = [
       "sudo rm -rf /var/lib/apt/lists/* && sudo apt-get clean && sudo apt-get update -y && sudo apt-get upgrade -y",
-      "sudo apt install default-jdk default-jre -y"
+      "sudo apt install openjdk-17-jdk openjdk-17-jre -y",
+      "java --version"
     ]
   }
 
@@ -39,7 +39,7 @@ build {
   }
 
   post-processor "manifest" {
-    output     = "debian-11-arm64-java11.json"
+    output     = "debian-11-arm64-java17.json"
     strip_path = true
   }
 }
