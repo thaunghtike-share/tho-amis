@@ -9,8 +9,8 @@ data "amazon-ami" "debian-11-arm64" {
   most_recent = true
 }
 
-source "amazon-ebs" "nixtune-debian-11-arm64-java8" {
-  ami_name      = "${local.name_prefix}debian-11-arm64-java8-{{isotime `2006-01-02`}}-{{timestamp}}"
+source "amazon-ebs" "nixtune-debian-11-arm64-node18" {
+  ami_name      = "${local.name_prefix}debian-11-arm64-node18-{{isotime `2006-01-02`}}-{{timestamp}}"
   instance_type = "c6g.medium"
   region        = "us-east-1"
   source_ami    = data.amazon-ami.debian-11-arm64.id
@@ -19,7 +19,7 @@ source "amazon-ebs" "nixtune-debian-11-arm64-java8" {
 
 build {
   sources = [
-    "source.amazon-ebs.nixtune-debian-11-arm64-java8"
+    "source.amazon-ebs.nixtune-debian-11-arm64-node18"
   ]
 
   provisioner "shell" {
@@ -29,10 +29,8 @@ build {
   provisioner "shell" {
     inline = [
       "sudo rm -rf /var/lib/apt/lists/* && sudo apt-get clean && sudo apt-get update -y && sudo apt-get upgrade -y",
-      "sudo apt-get install software-properties-common -y",
-      "sudo apt-add-repository 'deb http://security.debian.org/debian-security stretch/updates main'",
-      "sudo rm -rf /var/lib/apt/lists/* && sudo apt-get clean && sudo apt-get update -y && sudo apt-get upgrade -y",
-      "sudo apt install openjdk-8-jdk openjdk-8-jre -y"
+      "curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -",
+      "sudo apt-get install nodejs -y"
     ]
   }
 
@@ -41,7 +39,7 @@ build {
   }
 
   post-processor "manifest" {
-    output     = "debian-11-arm64-java8.json"
+    output     = "debian-11-arm64-node18.json"
     strip_path = true
   }
 }
