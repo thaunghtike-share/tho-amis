@@ -28,7 +28,11 @@ build {
 
   provisioner "shell" {
     inline = [
-      "sudo dnf module list ruby"
+      "sudo dnf module list ruby",
+      "sudo dnf module reset ruby",
+      "sudo dnf module -y enable ruby:3.1",
+      "sudo dnf module -y install ruby:3.1/common",
+      "ruby --version"
     ]
   }
 
