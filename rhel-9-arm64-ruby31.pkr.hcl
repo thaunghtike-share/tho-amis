@@ -9,8 +9,8 @@ data "amazon-ami" "rhel-9-arm64" {
   most_recent = true
 }
 
-source "amazon-ebs" "nixtune-rhel-9-arm64-python310" {
-  ami_name      = "${local.name_prefix}rhel-9-arm64-python310-{{isotime `2006-01-02`}}-{{timestamp}}"
+source "amazon-ebs" "nixtune-rhel-9-arm64-ruby31" {
+  ami_name      = "${local.name_prefix}rhel-9-arm64-ruby31-{{isotime `2006-01-02`}}-{{timestamp}}"
   instance_type = "c6g.medium"
   region        = "us-east-1"
   source_ami    = data.amazon-ami.rhel-9-arm64.id
@@ -19,7 +19,7 @@ source "amazon-ebs" "nixtune-rhel-9-arm64-python310" {
 
 build {
   sources = [
-    "source.amazon-ebs.nixtune-rhel-9-arm64-python310"
+    "source.amazon-ebs.nixtune-rhel-9-arm64-ruby31"
   ]
 
   provisioner "shell" {
@@ -45,7 +45,7 @@ build {
   }
 
   post-processor "manifest" {
-    output     = "rhel-9-arm64-python310.json"
+    output     = "rhel-9-arm64-ruby31.json"
     strip_path = true
   }
 }
