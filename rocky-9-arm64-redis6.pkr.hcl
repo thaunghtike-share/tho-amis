@@ -29,10 +29,9 @@ build {
   provisioner "shell" {
     inline = [
       "sudo dnf update -y",
-      "sudo dnf module list redis",
-      "sudo dnf -y module reset redis",
-      "sudo dnf install @redis:6",
-      "sudo systemctl enable --now redis"
+      "sudo dnf -y install redis",
+      "sudo systemctl enable --now redis",
+      "redis-server --version"
     ]
   }
 
