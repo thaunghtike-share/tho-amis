@@ -29,7 +29,7 @@ build {
   provisioner "shell" {
     inline = [
       "sudo dnf install curl -y",
-      "curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -",
+      "curl -fsSL https://rpm.nodesource.com/setup_18.x | sudo -E bash -",
       "sudo dnf install nodejs -y",
       "node -v"
     ]
