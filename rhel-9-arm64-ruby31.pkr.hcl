@@ -31,7 +31,7 @@ build {
       "sudo yum install gcc make git-core zlib zlib-devel gcc-c++ patch readline readline-devel openssl-devel make bzip2 autoconf automake libtool bison curl sqlite-devel -y",
       "gpg2 --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB",
       "curl -sSL https://get.rvm.io | bash -s stable",
-      "/bin/bash -c '. /home/admin/.rvm/scripts/rvm && rvm install ruby-3.1.2 && ruby --version'"
+      "/bin/bash -c '. /home/ec2-user/.rvm/scripts/rvm && rvm install ruby-3.1.2 && ruby --version'"
     ]
   }
 
