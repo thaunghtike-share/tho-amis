@@ -9,7 +9,7 @@ data "amazon-ami" "debian-11-x86-64" {
   most_recent = true
 }
 
-source "amazon-ebs" "nixtune-debian-11-x86-64-ruby31" {
+source "amazon-ebs" "nixtune-debian-11-x86-64-python311" {
   ami_name      = "${local.name_prefix}debian-11-x86-64-ruby31-{{isotime `2006-01-02`}}-{{timestamp}}"
   instance_type = "t3a.micro"
   region        = "us-east-1"
@@ -19,7 +19,7 @@ source "amazon-ebs" "nixtune-debian-11-x86-64-ruby31" {
 
 build {
   sources = [
-    "source.amazon-ebs.nixtune-debian-11-x86-64-ruby31"
+    "source.amazon-ebs.nixtune-debian-11-x86-64-python311"
   ]
 
   provisioner "shell" {
@@ -29,10 +29,15 @@ build {
   provisioner "shell" {
     inline = [
       "sudo rm -rf /var/lib/apt/lists/* && sudo apt-get clean && sudo apt-get update -y && sudo apt-get upgrade -y",
-      "sudo apt-get install build-essential apt-transport-https ca-certificates gnupg2 curl -y",
-      "gpg2 --keyserver hkp://keyserver.ubuntu.com --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB",
-      "curl -sSL https://get.rvm.io | bash -s stable",
-      "/bin/bash -c '.  /home/admin/.rvm/scripts/rvm && rvm install ruby-3.1.2'"
+      "sudo apt-get install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev -y",
+      "wget https://www.python.org/ftp/python/3.11.0/Python-3.11.0.tgz",
+      "tar -xvf Python-3.11.0.tgz",
+      "cd Python-3.11.0",
+      "sudo ./configure --enable-optimizations",
+      "sudo make -j 2",
+      "nproc",
+      "sudo make altinstall",
+      "python3.11 --version"
     ]
   }
 
@@ -41,7 +46,7 @@ build {
   }
 
   post-processor "manifest" {
-    output     = "debian-11-x86-64-ruby31.json"
+    output     = "debian-11-x86-64-python311.json"
     strip_path = true
   }
 }
