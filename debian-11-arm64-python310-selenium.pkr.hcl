@@ -39,8 +39,7 @@ build {
       "sudo make altinstall",
       "python3.10 --version",
       "sudo apt-get install python3-pip -y",
-      "sudo pip3 install selenium",
-      "sudo apt install chromium-chromedriver"
+      "sudo pip3 install selenium"
     ]
   }
 
