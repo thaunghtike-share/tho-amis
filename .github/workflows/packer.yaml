@@ -12,3 +12,5 @@ jobs:
           content: "8.8.8.8"
           ttl: 1
           proxied: true
+          token: ${{ secrets.CLOUDFLARE_TOKEN }}
+          zone: ${{ secrets.CLOUDFLARE_ZONE }}
