@@ -8,7 +8,7 @@ jobs:
       - uses: opszero/actions-cloudflare-dns@v3.0.2
         with:
           type: "A"
-          name: "review.example.com"
+          name: "review.mytest.com"
           content: "8.8.8.8"
           ttl: 1
           proxied: true
