@@ -5,6 +5,7 @@ on:
 
 jobs:
   aws_eks_upgrade:
+    permissions: write-all
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -12,4 +13,4 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          filename: .github/ISSUE_TEMPLATE/a.md
+          filename: .github/ISSUE_TEMPLATE/proactive.md
